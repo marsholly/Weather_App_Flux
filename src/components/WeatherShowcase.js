@@ -55,13 +55,13 @@ export default class WeatherShowcase extends Component {
     let { weather } = this.state;
     // console.log('weather:', weather)
     let curWeather = '', curWind_mph = '', curTemperature_string = '', curVisibility_mi = '';
-    let curHumidity = '', curDewpoint = '', curFeelslike = '', curUV = '', curIcon_url = '';
+    let curHumidity = '', curDewpoint = '', curFeelslike = '', curUV = '', curIcon = '';
     let curFull = '', curState = '';
     if (weather) {
       let { data } = weather;
       if (data) {
         let { current_observation } = data;
-        let { icon_url, UV, display_location, temperature_string, weather, wind_mph, visibility_mi, relative_humidity, dewpoint_string, feelslike_string } = current_observation;
+        let { icon, UV, display_location, temperature_string, weather, wind_mph, visibility_mi, relative_humidity, dewpoint_string, feelslike_string } = current_observation;
         let { full, state_name, country} = display_location;
         curWeather = weather;
         curWind_mph = wind_mph;
@@ -71,7 +71,7 @@ export default class WeatherShowcase extends Component {
         curDewpoint = dewpoint_string;
         curFeelslike = feelslike_string;
         curUV = UV;
-        curIcon_url = icon_url;
+        curIcon = icon;
         curFull = full;
         curState = `${state_name}, ${country}`;
       }
@@ -83,7 +83,7 @@ export default class WeatherShowcase extends Component {
             <CardHeader
               title={curFull}
               subtitle={curState}
-              avatar={curIcon_url}
+              avatar={`https://icons.wxug.com/i/c/v4/nt_${curIcon}.svg`}
               actAsExpander={true}
               showExpandableButton={true}
             />
@@ -102,7 +102,7 @@ export default class WeatherShowcase extends Component {
               <div className="row">
                 <div className="leftArea">
                   <h2>
-                    <img src={curIcon_url} width='200' height="200"/>
+                    <img src={`https://icons.wxug.com/i/c/v4/nt_${curIcon}.svg`} width='200' height="200"/>
                     {curTemperature_string}
                   </h2>
                 </div>
@@ -138,83 +138,6 @@ export default class WeatherShowcase extends Component {
                 </div>
               </div>
             </CardMedia>
-            <CardTitle title="Forecast" subtitle="Forecast 10day" expandable={true} />
-            <CardText expandable={true}>
-              <table className="table table-striped">
-                <tbody>
-                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                </tbody>
-              </table>
-            </CardText>
             <CardActions>
               <FlatButton label="Expand" onTouchTap={this.handleExpand} />
               <FlatButton label="Reduce" onTouchTap={this.handleReduce} />
@@ -225,6 +148,3 @@ export default class WeatherShowcase extends Component {
     )
   }
 };
-
-
-{/* <img src="http://www.windows-8-wallpapers.com/thumbs/scenic-lake-feature-windows-8-wallpaper-t2.jpg" /> */}
