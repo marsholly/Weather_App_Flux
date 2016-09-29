@@ -10,8 +10,7 @@ export default class WeatherShowcase extends Component {
     super(props);
     this.state = {
       expanded: false,
-      weather: WeatherStore.getWeather(),
-      local: WeatherStore.getLocal()
+      weather: WeatherStore.getWeather()
     }
     this._onChange = this._onChange.bind(this);
     this.handleExpandChange = this.handleExpandChange.bind(this);
@@ -22,7 +21,6 @@ export default class WeatherShowcase extends Component {
   }
 
   componentWillMount() {
-    WeatherActions.searchLocalByAutoIP();
     WeatherActions.lookUpByAutoIP();
     WeatherStore.startListening(this._onChange);
   }
@@ -33,8 +31,7 @@ export default class WeatherShowcase extends Component {
 
   _onChange() {
     this.setState({
-      weather: WeatherStore.getWeather(),
-      local: WeatherStore.getLocal()
+      weather: WeatherStore.getWeather()
     })
   }
 
@@ -55,21 +52,38 @@ export default class WeatherShowcase extends Component {
   }
 
   render() {
-    let { weather, local } = this.state;
-    if(weather) {
+    let { weather } = this.state;
+    // console.log('weather:', weather)
+    let curWeather = '', curWind_mph = '', curTemperature_string = '', curVisibility_mi = '';
+    let curHumidity = '', curDewpoint = '', curFeelslike = '', curUV = '', curIcon_url = '';
+    let curFull = '', curState = '';
+    if (weather) {
       let { data } = weather;
-      // let {  } = data;
+      if (data) {
+        let { current_observation } = data;
+        let { icon_url, UV, display_location, temperature_string, weather, wind_mph, visibility_mi, relative_humidity, dewpoint_string, feelslike_string } = current_observation;
+        let { full, state_name, country} = display_location;
+        curWeather = weather;
+        curWind_mph = wind_mph;
+        curTemperature_string = temperature_string;
+        curVisibility_mi = visibility_mi;
+        curHumidity = relative_humidity;
+        curDewpoint = dewpoint_string;
+        curFeelslike = feelslike_string;
+        curUV = UV;
+        curIcon_url = icon_url;
+        curFull = full;
+        curState = `${state_name}, ${country}`;
+      }
     }
-
-    console.log('weather:', weather);
     return (
       <div className="container">
         <div className="row">
           <Card expanded={this.state.expanded} onExpandChange={this.handleExpandChange}>
             <CardHeader
-              title="Pleasanton(city)"
-              subtitle="CA, United States (Country)"
-              avatar="http://icons.wxug.com/i/c/k/nt_clear.gif"
+              title={curFull}
+              subtitle={curState}
+              avatar={curIcon_url}
               actAsExpander={true}
               showExpandableButton={true}
             />
@@ -83,13 +97,13 @@ export default class WeatherShowcase extends Component {
             </CardText>
             <CardMedia
               expandable={true}
-              overlay={<CardTitle title="clear" />}
+              overlay={<CardTitle title = {curWeather}/>}
             >
               <div className="row">
                 <div className="leftArea">
                   <h2>
-                    <img src="http://icons.wxug.com/i/c/k/nt_clear.gif" width='200' height="200"/>
-                    82
+                    <img src={curIcon_url} width='200' height="200"/>
+                    {curTemperature_string}
                   </h2>
                 </div>
                 <div className="rightArea">
@@ -97,25 +111,27 @@ export default class WeatherShowcase extends Component {
                     <tbody>
                       <tr >
                         <td>Feels like</td>
-                        <td>86</td>
+                        <td>{curFeelslike}</td>
                       </tr>
                       <tr>
-                        <td>Visibility</td>
-                        <td>12344</td>
+                        <td>Visibility/mi</td>
+                        <td>{curVisibility_mi}</td>
                       </tr>
                       <tr>
                         <td>Humidity</td>
-                        <td>29%</td>
+                        <td>{curHumidity}</td>
                       </tr>
                       <tr>
-                        <td>UV Index</td>
-                        <td>5 Moderate</td>
+                        <td>Wind/mph</td>
+                        <td>{curWind_mph}</td>
                       </tr>
                       <tr>
                         <td>Dew Point</td>
-                        <td>51</td>
+                        <td>{curDewpoint}</td>
                       </tr>
-                      <tr className="trBottom">
+                      <tr>
+                        <td>UV</td>
+                        <td>{curUV}</td>
                       </tr>
                     </tbody>
                   </table>

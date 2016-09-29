@@ -6,12 +6,6 @@ const ServerActions = {
       type: 'RECEIVE_WEATHER',
       payload: { weather }
     })
-  },
-  receiveLocal(local) {
-    AppDispatcher.dispatch({
-      type: 'RECEIVE_LOCAL',
-      payload: { local }
-    })
   }
 }
 

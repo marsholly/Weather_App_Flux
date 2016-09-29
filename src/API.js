@@ -28,15 +28,6 @@ const API = {
       .catch(err => {
         console.log('err:', err);
       })
-  },
-  searchLocalByAutoIP() {
-    axios.get('https://api.wunderground.com/api/4949edfac53bb304/geolookup/q/autoip.json')
-      .then(local => {
-        ServerActions.receiveLocal(local);
-      })
-      .catch(err => {
-        console.log('err:', err);
-      })
   }
 }
 

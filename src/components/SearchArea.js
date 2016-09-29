@@ -12,7 +12,8 @@ export default class SearchArea extends Component {
     this.searchWeather = this.searchWeather.bind(this);
   }
 
-  searchWeather() {
+  searchWeather(e) {
+    e.preventDefault();
     let { searchKeywords } = this.state;
     let searchKeywordsArr;
     if (searchKeywords.includes(',')) {
