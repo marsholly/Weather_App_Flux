@@ -2,3 +2,22 @@
   width: 380px;
   margin: auto;
 }
+
+table{
+  font-size: 23px;
+}
+
+td {
+  border-bottom: 1px solid #CFD8DC !important;
+  padding-right: 60px;
+}
+
+.trBottom {
+  height: 80px;
+}
+
+.leftArea {
+  float: left;
+  margin-right: 200px;
+  margin-bottom: 60px;
+}

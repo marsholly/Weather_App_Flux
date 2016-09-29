@@ -2,6 +2,7 @@ import { EventEmitter } from 'events';
 import AppDispatcher from '../AppDispatcher';
 
 let _weather = null;
+let _local = null;
 
 class WeatherStore extends EventEmitter {
   constructor(props) {
@@ -12,7 +13,10 @@ class WeatherStore extends EventEmitter {
           _weather = action.payload.weather;
           this.emit('CHANGE');
           break;
-
+        case 'RECEIVE_LOCAL':
+          _local = action.payload.local;
+          this.emit('CHANGE');
+          break;
       }
     })
   }
@@ -27,6 +31,10 @@ class WeatherStore extends EventEmitter {
 
   getWeather() {
     return _weather;
+  }
+
+  getLocal() {
+    return _local;
   }
 }
 

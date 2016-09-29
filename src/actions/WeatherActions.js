@@ -9,6 +9,9 @@ const WeatherActions = {
   },
   lookUpByAutoIP() {
     API.lookUpByAutoIP();
+  },
+  searchLocalByAutoIP() {
+    API.searchLocalByAutoIP();
   }
 }
 

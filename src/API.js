@@ -3,7 +3,7 @@ import ServerActions from './actions/ServerActions';
 
 const API = {
   lookUpByCity(cityArr) {
-    axios.get(`https://api.wunderground.com/api/4949edfac53bb304/geolookup/q/${cityArr[1]}/${cityArr[0]}.json`)
+    axios.get(`https://api.wunderground.com/api/4949edfac53bb304/conditions/q/${cityArr[1]}/${cityArr[0]}.json`)
       .then(weather => {
         ServerActions.receiveWeather(weather);
       })
@@ -12,7 +12,7 @@ const API = {
       })
   },
   lookUpByNumber(number) {
-    axios.get(`https://api.wunderground.com/api/4949edfac53bb304/geolookup/q/${number}.json`)
+    axios.get(`https://api.wunderground.com/api/4949edfac53bb304/conditions/q/${number}.json`)
       .then(weather => {
         ServerActions.receiveWeather(weather);
       })
@@ -21,9 +21,18 @@ const API = {
       })
   },
   lookUpByAutoIP() {
-    axios.get('https://api.wunderground.com/api/4949edfac53bb304/geolookup/q/autoip.json')
+    axios.get('https://api.wunderground.com/api/4949edfac53bb304/conditions/q/autoip.json')
       .then(weather => {
         ServerActions.receiveWeather(weather);
+      })
+      .catch(err => {
+        console.log('err:', err);
+      })
+  },
+  searchLocalByAutoIP() {
+    axios.get('https://api.wunderground.com/api/4949edfac53bb304/geolookup/q/autoip.json')
+      .then(local => {
+        ServerActions.receiveLocal(local);
       })
       .catch(err => {
         console.log('err:', err);
